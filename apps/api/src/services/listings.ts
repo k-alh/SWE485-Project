@@ -28,7 +28,8 @@ export function toListingDto(listing: Listing): ListingDto {
     type: listing.type as ListingType,
     city: listing.city,
     description: listing.description,
-    deadline: listing.deadline.toISOString(),
+    // Day precision: a full timestamp would shift the day for clients east or west of UTC.
+    deadline: listing.deadline.toISOString().slice(0, 10),
     eligibilityYears: parseEligibility(listing.eligibilityYears),
     isActive: listing.isActive,
     createdAt: listing.createdAt.toISOString(),
