@@ -148,7 +148,7 @@ export function CataloguePage() {
             />
           </div>
 
-          <div>
+          <div className="filters__field">
             <label className="field__label" htmlFor="type-filter">
               Type
             </label>
@@ -164,7 +164,7 @@ export function CataloguePage() {
             </select>
           </div>
 
-          <div>
+          <div className="filters__field">
             <label className="field__label" htmlFor="city-filter">
               City
             </label>
