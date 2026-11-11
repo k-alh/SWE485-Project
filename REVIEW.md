@@ -45,19 +45,21 @@ The deferral is recorded in `trade-offs.md` D11 and risk R10; the manual browser
 current control.
 
 **I2 — The OpenAI provider path is untested.**
-`AI_PROVIDER=openai` compiles and returns the same contract, but no test exercises it and CI
-cannot, because it needs a key. The mock is the tested path and the default. The risk is that the
-two implementations drift; the contract test would catch it if the OpenAI path were run against a
-recorded response.
+`AI_PROVIDER=openai` compiles and returns the same contract, but no test exercises it: it needs a key
+and a network call. The mock is the tested path and the default. The two implementations can drift
+without a failure; the contract test would catch it if the OpenAI path were run against a recorded response.
 
 **I3 — The admin screens were verified through the API, not the UI.**
-Admin create, duplicate and extraction were confirmed by HTTP against a live server. The admin
-*page* was reviewed by reading it and by rendering it, not by a full click-through of every field.
+Admin create, duplicate and extraction were confirmed by HTTP against a live server. The admin *page*
+was reviewed by reading it and by rendering it, not by a click-through of every field.
+
+### Minor — fixed
+
+**M1 — favicon 404.**
+Every page load requested `/favicon.ico` and the app served nothing, leaving one console error per
+page. Fixed in `7690b36` with an SVG icon linked from `index.html`.
 
 ### Minor — open
-
-**M1 — favicon 404.** The browser requests `/favicon.ico` and the app does not serve one. One
-console error on every page load. Cosmetic; noted rather than fixed.
 
 **M2 — React Router future-flag warnings.** The development console shows the v7 future-flag
 warnings. They are informational and disappear with the router upgrade, which is out of scope.
