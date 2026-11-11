@@ -80,6 +80,10 @@ const LABELS = {
     /^(?:company|organisation|organization|employer|host|entity|sponsor|hospital|institution)\s*[:\-]\s*(.+)$/i,
   city: /^(?:city|location|work location)\s*[:\-]\s*(.+)$/i,
   deadline: /^(?:deadline|closing date|closing|apply by|application deadline|last date)\s*[:\-]\s*(.+)$/i,
+  // Labels that describe the posting but are not part of its prose. They are
+  // consumed so they never leak into the description field.
+  metadata:
+    /^(?:type|contract|duration|start date|eligibility|eligible|requirements?|qualifications?|stipend|salary|department|discipline|major|apply|how to apply|contact)\s*[:\-]\s*.+$/i,
 };
 
 /** Splits the pasted text into data lines and instruction-like lines. */
@@ -235,6 +239,9 @@ export function mockExtract(rawText: string): ExtractionResult {
         deadline = parsed;
         consumed.add(index);
       }
+    }
+    if (LABELS.metadata.test(line)) {
+      consumed.add(index);
     }
   });
 
