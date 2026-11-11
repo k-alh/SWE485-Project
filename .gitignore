@@ -1,0 +1,37 @@
+node_modules/
+dist/
+build/
+coverage/
+
+# Local database files — never commit real data
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+apps/api/prisma/*.db
+apps/api/prisma/*.db-journal
+apps/api/prisma/test.db*
+
+# Environment — only .env.example is committed
+.env
+.env.*
+!.env.example
+
+# Secrets and keys
+*.pem
+*.key
+*.p12
+secrets/
+
+# Test and tooling output
+playwright-report/
+test-results/
+.vitest/
+*.log
+npm-debug.log*
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

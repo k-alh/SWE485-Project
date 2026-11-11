@@ -1,0 +1,32 @@
+{
+  "name": "talea",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Talea (طليعة) — student CO-OP and GDP opportunity tracker",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build:shared": "npm run build -w @talea/shared",
+    "dev": "npm run build:shared && concurrently -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm run dev -w @talea/api",
+    "dev:web": "npm run dev -w @talea/web",
+    "build": "npm run build:shared && npm run build -w @talea/api && npm run build -w @talea/web",
+    "typecheck": "npm run build:shared && npm run typecheck --workspaces --if-present",
+    "test": "npm run build:shared && npm run test --workspaces --if-present",
+    "test:e2e": "npm run test:e2e -w @talea/web",
+    "db:push": "npm run db:push -w @talea/api",
+    "db:seed": "npm run db:seed -w @talea/api",
+    "db:reset": "npm run db:reset -w @talea/api",
+    "setup": "npm install && npm run db:push && npm run db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

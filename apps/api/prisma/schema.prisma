@@ -1,0 +1,104 @@
+// Talea data model — 6 tables, inside the 8-table ceiling.
+// SQLite stores no native enums, so constrained values are validated by zod in
+// @talea/shared before they reach the database.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("student") // student | admin
+  academicYear String? // "3" | "4" | "5" | "graduate"
+  createdAt    DateTime @default(now())
+
+  sessions Session[]
+  tracker  TrackerEntry[]
+  drafts   AiExtractionDraft[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Listing {
+  id               String   @id @default(cuid())
+  title            String
+  organisation     String
+  type             String // coop | gdp
+  city             String
+  description      String
+  deadline         DateTime
+  eligibilityYears String // comma separated: "3,4,graduate"
+  dedupeKey        String   @unique
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  trackerEntries TrackerEntry[]
+
+  @@index([type])
+  @@index([city])
+  @@index([deadline])
+}
+
+model TrackerEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  listingId String
+  status    String // saved | applied | interview | offer | rejected
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing       @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  events  StatusEvent[]
+
+  @@unique([userId, listingId])
+  @@index([userId])
+}
+
+model StatusEvent {
+  id         String   @id @default(cuid())
+  entryId    String
+  fromStatus String?
+  toStatus   String
+  note       String?
+  at         DateTime @default(now())
+
+  entry TrackerEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+
+  @@index([entryId])
+}
+
+model AiExtractionDraft {
+  id            String    @id @default(cuid())
+  adminId       String
+  rawText       String
+  extractedJson String
+  provider      String
+  status        String    @default("draft") // draft | approved | discarded
+  listingId     String?
+  createdAt     DateTime  @default(now())
+  reviewedAt    DateTime?
+
+  admin User @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+}
