@@ -36,10 +36,13 @@ UTC would render the previous day, and the pill would disagree with the date bes
 
 ### Important — open
 
-**I1 — No automated browser tests.**
-Five screens have no end-to-end coverage. The deferral is recorded in `trade-offs.md` D11
-and risk R10. The browser pass below is the current control. Next step is a Playwright spec
-for sign in → save → advance, with chromium installed in CI.
+**I1 — Browser tests exist but have not been run.**
+`apps/web/playwright.config.ts` and `apps/web/e2e/student-journey.spec.ts` cover sign in → save →
+advance, plus an illegal transition attempted by direct request. The spec has not been executed here:
+`npx playwright install chromium` did not finish downloading the browser. Run `npm run test:e2e` once
+chromium is installed, and add it to CI with `npx playwright install --with-deps chromium`.
+The deferral is recorded in `trade-offs.md` D11 and risk R10; the manual browser pass below is the
+current control.
 
 **I2 — The OpenAI provider path is untested.**
 `AI_PROVIDER=openai` compiles and returns the same contract, but no test exercises it and CI
