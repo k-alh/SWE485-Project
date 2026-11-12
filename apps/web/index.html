@@ -6,6 +6,20 @@
     <meta name="description" content="Talea — find and track CO-OP and graduate development opportunities." />
     <title>Talea — CO-OP &amp; graduate opportunities</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('talea-theme');
+        } catch (error) {
+          stored = null;
+        }
+        var dark =
+          stored === 'dark' ||
+          (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

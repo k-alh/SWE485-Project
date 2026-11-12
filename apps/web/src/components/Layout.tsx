@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth.js';
+import { ThemeToggle } from './ThemeToggle.js';
 
 export function Layout() {
   const { user, logout } = useAuth();
@@ -37,6 +38,7 @@ export function Layout() {
           </nav>
 
           <div className="topbar__account">
+            <ThemeToggle />
             {user ? (
               <>
                 <span className="account-chip" title={user.email}>
