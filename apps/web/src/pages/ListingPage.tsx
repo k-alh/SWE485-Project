@@ -116,7 +116,7 @@ export function ListingPage() {
       <article className="detail">
         <div>
           <header className="detail__head">
-            <span className="card__org">{listing.organisation}</span>
+            <p className="detail__org">{listing.organisation}</p>
             <h1 className="detail__title">{listing.title}</h1>
             <div className="card__meta">
               <span className="pill pill--type">{LISTING_TYPE_LABELS[listing.type]}</span>
