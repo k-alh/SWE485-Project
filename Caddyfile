@@ -1,0 +1,22 @@
+{
+    admin off
+    auto_https off
+}
+
+:{$PORT:80} {
+    handle /api/* {
+        reverse_proxy https://api-production-bfc5c618.up.railway.app {
+            header_up Host api-production-bfc5c618.up.railway.app
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    handle {
+        root * apps/web/dist
+        encode gzip zstd
+        file_server
+        try_files {path} /index.html
+    }
+}
