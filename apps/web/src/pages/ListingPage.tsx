@@ -116,44 +116,42 @@ export function ListingPage() {
       </Link>
 
       <article className="detail">
-        <div>
-          <header className="detail__head">
-            {organisation ? (
-              <a
-                className="detail__org detail__org--link"
-                href={organisation.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${listing.organisation} — official website, opens in a new tab`}
-              >
-                <img
-                  className="detail__logo"
-                  src={organisation.logo}
-                  alt=""
-                  width={34}
-                  height={34}
-                  decoding="async"
-                />
-                <span>{listing.organisation}</span>
-                <span className="detail__org-arrow" aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            ) : (
-              <p className="detail__org">{listing.organisation}</p>
-            )}
-            <h1 className="detail__title">{listing.title}</h1>
-            <div className="card__meta">
-              <span className="pill pill--type">{LISTING_TYPE_LABELS[listing.type]}</span>
-              <span>{listing.city}</span>
-              <DeadlinePill deadline={listing.deadline} />
-            </div>
-          </header>
+        <header className="detail__head">
+          {organisation ? (
+            <a
+              className="detail__org detail__org--link"
+              href={organisation.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${listing.organisation} — official website, opens in a new tab`}
+            >
+              <img
+                className="detail__logo"
+                src={organisation.logo}
+                alt=""
+                width={34}
+                height={34}
+                decoding="async"
+              />
+              <span>{listing.organisation}</span>
+              <span className="detail__org-arrow" aria-hidden="true">
+                ↗
+              </span>
+            </a>
+          ) : (
+            <p className="detail__org">{listing.organisation}</p>
+          )}
+          <h1 className="detail__title">{listing.title}</h1>
+          <div className="card__meta">
+            <span className="pill pill--type">{LISTING_TYPE_LABELS[listing.type]}</span>
+            <span>{listing.city}</span>
+            <DeadlinePill deadline={listing.deadline} />
+          </div>
+        </header>
 
-          <p className="prose">{listing.description}</p>
-        </div>
+        <p className="prose">{listing.description}</p>
 
-        <aside className="side-panel">
+        <aside className="side-panel" aria-label="Deadline, eligibility and tracker">
           <div className="side-panel__row">
             <span className="side-panel__label">Deadline</span>
             <span>{formatDate(listing.deadline)}</span>
@@ -170,15 +168,17 @@ export function ListingPage() {
             <span>{LISTING_TYPE_LABELS[listing.type]}</span>
           </div>
 
-          {tracked ? (
-            <Link className="btn btn--ghost btn--block" to="/tracker">
-              In your tracker — open it
-            </Link>
-          ) : (
-            <button type="button" className="btn btn--clay btn--block" onClick={handleSave} disabled={saving}>
-              {saving ? 'Saving…' : 'Save to tracker'}
-            </button>
-          )}
+          <div className="side-panel__action">
+            {tracked ? (
+              <Link className="btn btn--ghost" to="/tracker">
+                In your tracker — open it
+              </Link>
+            ) : (
+              <button type="button" className="btn btn--clay" onClick={handleSave} disabled={saving}>
+                {saving ? 'Saving…' : 'Save to tracker'}
+              </button>
+            )}
+          </div>
 
           <p className="field__hint">
             Talea does not submit applications. You apply on the organisation's own site and record
