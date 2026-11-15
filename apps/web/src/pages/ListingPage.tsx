@@ -6,6 +6,7 @@ import { ApiError, api } from '../api.js';
 import { useAuth } from '../auth.js';
 import { DeadlinePill } from '../components/DeadlinePill.js';
 import { eligibilityHintText, eligibilityText, formatDate } from '../lib/labels.js';
+import { organisationProfile } from '../lib/organisations.js';
 
 export function ListingPage() {
   const { id } = useParams<{ id: string }>();
@@ -106,6 +107,7 @@ export function ListingPage() {
   }
 
   const hint = eligibilityHint(listing.eligibilityYears, user?.academicYear ?? null);
+  const organisation = organisationProfile(listing.organisation);
 
   return (
     <>
@@ -116,7 +118,30 @@ export function ListingPage() {
       <article className="detail">
         <div>
           <header className="detail__head">
-            <p className="detail__org">{listing.organisation}</p>
+            {organisation ? (
+              <a
+                className="detail__org detail__org--link"
+                href={organisation.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${listing.organisation} — official website, opens in a new tab`}
+              >
+                <img
+                  className="detail__logo"
+                  src={organisation.logo}
+                  alt=""
+                  width={34}
+                  height={34}
+                  decoding="async"
+                />
+                <span>{listing.organisation}</span>
+                <span className="detail__org-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            ) : (
+              <p className="detail__org">{listing.organisation}</p>
+            )}
             <h1 className="detail__title">{listing.title}</h1>
             <div className="card__meta">
               <span className="pill pill--type">{LISTING_TYPE_LABELS[listing.type]}</span>

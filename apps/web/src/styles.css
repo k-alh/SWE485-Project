@@ -614,6 +614,45 @@ textarea {
   color: var(--ink-soft);
 }
 
+.detail__org--link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  text-decoration: none;
+  transition: color 140ms ease;
+}
+
+.detail__org--link:hover {
+  color: var(--clay);
+}
+
+.detail__org--link:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.detail__logo {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 4px;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.detail__org-arrow {
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+
+.detail__org--link:hover .detail__org-arrow {
+  color: var(--clay);
+}
+
 .detail__title {
   font-size: clamp(1.7rem, 3.5vw, 2.4rem);
 }
