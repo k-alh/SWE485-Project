@@ -642,12 +642,29 @@ textarea {
   background: #fff;
 }
 
-.detail__org-arrow {
-  font-size: 0.85rem;
-  color: var(--ink-faint);
+.detail__org-text {
+  display: grid;
+  gap: 0.1rem;
 }
 
-.detail__org--link:hover .detail__org-arrow {
+.detail__org-cta {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 140ms ease;
+}
+
+.detail__org-arrow {
+  font-size: 0.85rem;
+}
+
+.detail__org--link:hover .detail__org-cta,
+.detail__org--link:focus-visible .detail__org-cta {
   color: var(--clay);
 }
 

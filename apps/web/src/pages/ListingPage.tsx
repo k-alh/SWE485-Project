@@ -133,9 +133,14 @@ export function ListingPage() {
                 height={34}
                 decoding="async"
               />
-              <span>{listing.organisation}</span>
-              <span className="detail__org-arrow" aria-hidden="true">
-                ↗
+              <span className="detail__org-text">
+                <span>{listing.organisation}</span>
+                <span className="detail__org-cta">
+                  Visit the official website{' '}
+                  <span className="detail__org-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </span>
               </span>
             </a>
           ) : (
