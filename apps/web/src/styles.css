@@ -484,10 +484,24 @@ textarea {
 }
 
 .card__org {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--ink-soft);
+}
+
+.card__logo {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  padding: 3px;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
 }
 
 .card__title {

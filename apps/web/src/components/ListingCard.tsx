@@ -3,7 +3,7 @@ import { LISTING_TYPE_LABELS, deadlineStatus, eligibilityHint } from '@talea/sha
 import type { ListingDto, PublicUser } from '@talea/shared';
 import { DeadlinePill } from './DeadlinePill.js';
 import { eligibilityHintText } from '../lib/labels.js';
-
+import { organisationProfile } from '../lib/organisations.js';
 interface ListingCardProps {
   listing: ListingDto;
   user: PublicUser | null;
@@ -15,11 +15,26 @@ interface ListingCardProps {
 export function ListingCard({ listing, user, tracked, saving, onSave }: ListingCardProps) {
   const closed = deadlineStatus(listing.deadline) === 'closed';
   const hint = eligibilityHint(listing.eligibilityYears, user?.academicYear ?? null);
+  const organisation = organisationProfile(listing.organisation);
+
 
   return (
     <article className={`card${closed ? ' card--closed' : ''}`}>
       <div className="card__top">
-        <span className="card__org">{listing.organisation}</span>
+        <span className="card__org">
+          {organisation ? (
+            <img
+              className="card__logo"
+              src={organisation.logo}
+              alt=""
+              width={26}
+              height={26}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : null}
+          <span>{listing.organisation}</span>
+        </span>
         <DeadlinePill deadline={listing.deadline} />
       </div>
 
