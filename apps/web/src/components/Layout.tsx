@@ -33,8 +33,9 @@ export function Layout() {
             <NavLink to="/" end>
               Catalogue
             </NavLink>
-            {user && <NavLink to="/tracker">My tracker</NavLink>}
-            {user?.role === 'admin' && <NavLink to="/admin">Admin</NavLink>}
+            {user?.role === 'admin' && <NavLink to="/admin/listings">Listings</NavLink>}
+            {user && user.role !== 'admin' && <NavLink to="/tracker">My tracker</NavLink>}
+            {user?.role === 'admin' && <NavLink to="/admin">Add Listing</NavLink>}
           </nav>
 
           <div className="topbar__account">

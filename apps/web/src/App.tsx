@@ -3,6 +3,7 @@ import { useAuth } from './auth.js';
 import { Layout } from './components/Layout.js';
 import { AdminPage } from './pages/AdminPage.js';
 import { CataloguePage } from './pages/CataloguePage.js';
+import { ListingsPage } from './pages/ListingsPage.js';
 import { ListingPage } from './pages/ListingPage.js';
 import { LoginPage } from './pages/LoginPage.js';
 import { TrackerPage } from './pages/TrackerPage.js';
@@ -20,7 +21,11 @@ export function App() {
           path="tracker"
           element={
             loading ? null : user ? (
-              <TrackerPage />
+              user.role === 'admin' ? (
+                <Navigate to="/admin/listings" replace />
+              ) : (
+                <TrackerPage />
+              )
             ) : (
               <Navigate to="/login?next=/tracker" replace />
             )
@@ -33,6 +38,16 @@ export function App() {
               <AdminPage />
             ) : (
               <Navigate to={user ? '/' : '/login?next=/admin'} replace />
+            )
+          }
+        />
+        <Route
+          path="admin/listings"
+          element={
+            loading ? null : user?.role === 'admin' ? (
+              <ListingsPage />
+            ) : (
+              <Navigate to={user ? '/' : '/login?next=/admin/listings'} replace />
             )
           }
         />
