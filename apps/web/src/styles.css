@@ -190,12 +190,16 @@ textarea {
   transform: rotate(45deg);
 }
 
+.wordmark__text {
+  white-space: nowrap;
+}
+
 .wordmark__arabic {
   font-family: var(--font-body);
-  font-size: 0.72rem;
-  color: var(--ink-faint);
-  margin-inline-start: 0.5rem;
+  font-size: 1em;
+  color: var(--ink-soft);
   letter-spacing: 0;
+  margin-left: 0.2rem;
 }
 
 .nav {

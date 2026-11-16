@@ -21,8 +21,8 @@ export function Layout() {
         <div className="topbar__inner">
           <Link to="/" className="wordmark" aria-label="Talea home">
             <span className="wordmark__mark" aria-hidden="true" />
-            <span>
-              Talea
+            <span className="wordmark__text">
+              Talea{' '}
               <span className="wordmark__arabic" lang="ar" dir="rtl">
                 طليعة
               </span>
@@ -35,7 +35,7 @@ export function Layout() {
             </NavLink>
             {user?.role === 'admin' && <NavLink to="/admin/listings">Listings</NavLink>}
             {user && user.role !== 'admin' && <NavLink to="/tracker">My tracker</NavLink>}
-            {user?.role === 'admin' && <NavLink to="/admin">Add Listing</NavLink>}
+            {user?.role === 'admin' && <NavLink to="/admin" end>Add Listing</NavLink>}
           </nav>
 
           <div className="topbar__account">
