@@ -47,7 +47,7 @@ export function ListingPage() {
   }, [id]);
 
   useEffect(() => {
-    if (!user || !id) {
+    if (!user || user.role === 'admin' || !id) {
       setTracked(false);
       return;
     }
@@ -108,6 +108,7 @@ export function ListingPage() {
 
   const hint = eligibilityHint(listing.eligibilityYears, user?.academicYear ?? null);
   const organisation = organisationProfile(listing.organisation);
+  const canTrack = user?.role !== 'admin';
 
   return (
     <>
@@ -129,8 +130,8 @@ export function ListingPage() {
                 className="detail__logo"
                 src={organisation.logo}
                 alt=""
-                width={34}
-                height={34}
+                width={46}
+                height={46}
                 decoding="async"
               />
               <span className="detail__org-text">
@@ -173,17 +174,19 @@ export function ListingPage() {
             <span>{LISTING_TYPE_LABELS[listing.type]}</span>
           </div>
 
-          <div className="side-panel__action">
-            {tracked ? (
-              <Link className="btn btn--ghost" to="/tracker">
-                In your tracker — open it
-              </Link>
-            ) : (
-              <button type="button" className="btn btn--clay" onClick={handleSave} disabled={saving}>
-                {saving ? 'Saving…' : 'Save to tracker'}
-              </button>
-            )}
-          </div>
+          {canTrack && (
+            <div className="side-panel__action">
+              {tracked ? (
+                <Link className="btn btn--ghost" to="/tracker">
+                  In your tracker — open it
+                </Link>
+              ) : (
+                <button type="button" className="btn btn--clay" onClick={handleSave} disabled={saving}>
+                  {saving ? 'Saving…' : 'Save to tracker'}
+                </button>
+              )}
+            </div>
+          )}
 
           <p className="field__hint">
             Talea does not submit applications. You apply on the organisation's own site and record

@@ -4,6 +4,7 @@ import type { ListingDto, PublicUser } from '@talea/shared';
 import { DeadlinePill } from './DeadlinePill.js';
 import { eligibilityHintText } from '../lib/labels.js';
 import { organisationProfile } from '../lib/organisations.js';
+
 interface ListingCardProps {
   listing: ListingDto;
   user: PublicUser | null;
@@ -16,8 +17,7 @@ export function ListingCard({ listing, user, tracked, saving, onSave }: ListingC
   const closed = deadlineStatus(listing.deadline) === 'closed';
   const hint = eligibilityHint(listing.eligibilityYears, user?.academicYear ?? null);
   const organisation = organisationProfile(listing.organisation);
-
-
+  const canTrack = user?.role !== 'admin';
   return (
     <article className={`card${closed ? ' card--closed' : ''}`}>
       <div className="card__top">
@@ -27,8 +27,8 @@ export function ListingCard({ listing, user, tracked, saving, onSave }: ListingC
               className="card__logo"
               src={organisation.logo}
               alt=""
-              width={26}
-              height={26}
+              width={36}
+              height={36}
               loading="lazy"
               decoding="async"
             />
@@ -55,19 +55,20 @@ export function ListingCard({ listing, user, tracked, saving, onSave }: ListingC
         <Link className="btn btn--ghost btn--small" to={`/listings/${listing.id}`}>
           Details
         </Link>
-        {tracked ? (
-          <span className="pill pill--open">In tracker</span>
-        ) : (
-          <button
-            type="button"
-            className="btn btn--primary btn--small"
-            onClick={() => onSave(listing)}
-            disabled={saving || closed}
-            aria-label={`Save ${listing.title} to your tracker`}
-          >
-            {saving ? 'Saving…' : closed ? 'Closed' : 'Save'}
-          </button>
-        )}
+        {canTrack &&
+          (tracked ? (
+            <span className="pill pill--open">In tracker</span>
+          ) : (
+            <button
+              type="button"
+              className="btn btn--primary btn--small"
+              onClick={() => onSave(listing)}
+              disabled={saving || closed}
+              aria-label={`Save ${listing.title} to your tracker`}
+            >
+              {saving ? 'Saving…' : closed ? 'Closed' : 'Save'}
+            </button>
+          ))}
       </div>
     </article>
   );

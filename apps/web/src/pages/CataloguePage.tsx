@@ -83,7 +83,7 @@ export function CataloguePage() {
   }, [debouncedQuery, type, city, deadlineFilter]);
 
   useEffect(() => {
-    if (!user) {
+    if (!user || user.role === 'admin') {
       setTracked({});
       return;
     }

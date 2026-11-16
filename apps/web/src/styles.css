@@ -495,9 +495,9 @@ textarea {
 
 .card__logo {
   flex: none;
-  width: 26px;
-  height: 26px;
-  padding: 3px;
+  width: 36px;
+  height: 36px;
+  padding: 4px;
   object-fit: contain;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -633,9 +633,9 @@ textarea {
 
 .detail__logo {
   flex: none;
-  width: 34px;
-  height: 34px;
-  padding: 4px;
+  width: 46px;
+  height: 46px;
+  padding: 5px;
   object-fit: contain;
   border: 1px solid var(--line);
   border-radius: 8px;
