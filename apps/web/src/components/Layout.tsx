@@ -19,14 +19,23 @@ export function Layout() {
 
       <header className="topbar">
         <div className="topbar__inner">
-          <Link to="/" className="wordmark" aria-label="Talea home">
-            <span className="wordmark__mark" aria-hidden="true" />
-            <span className="wordmark__text">
-              Talea{' '}
-              <span className="wordmark__arabic" lang="ar" dir="rtl">
-                طليعة
-              </span>
-            </span>
+          <Link to="/" className="wordmark" aria-label="Talea — home">
+            <img
+              className="wordmark__logo wordmark__logo--light"
+              src="/brand/talea-lockup-light.png"
+              alt=""
+              width={127}
+              height={34}
+              decoding="async"
+            />
+            <img
+              className="wordmark__logo wordmark__logo--dark"
+              src="/brand/talea-lockup-dark.png"
+              alt=""
+              width={127}
+              height={34}
+              decoding="async"
+            />
           </Link>
 
           <nav className="nav" aria-label="Main">
