@@ -4,8 +4,7 @@ The prompts that changed this repository, quoted as sent. Each entry records wha
 what it produced, and the commits that carry it, so a reader can check the claim against the history.
 Trivial messages — confirmations, "push it", "is it pushed?" — are left out: they moved no work.
 
-Prompts 1–9 were transcribed from the session by the author; the rest are quoted from the same log. The
-Arabic in prompt 9 is reproduced as written.
+All Prompts were transcribed from the session by the author and quoted from the same log.
 
 ---
 
