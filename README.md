@@ -94,6 +94,7 @@ only place that enforces them.
 - [`docs/risk-register.md`](docs/risk-register.md) — risks, owners, mitigations
 - [`docs/adr/`](docs/adr/) — architecture decision records (MADR)
 - [`AI_USE_DISCLOSURE.md`](AI_USE_DISCLOSURE.md) — where AI was used and how it was checked
+- [`Prompts.md`](Prompts.md) — the prompts that changed the repository, with what each produced
 - [`REVIEW.md`](REVIEW.md) — review log
 
 ## Known limits
